@@ -1,6 +1,7 @@
 package eval
 
 import (
+	"fmt"
 	"go/ast"
 	"go/parser"
 	"go/token"
@@ -49,34 +50,33 @@ func evalAst(expr ast.Expr, data string) any {
 		return evalAst(expr.X, data)
 	case *ast.BasicLit:
 		return expr.Value
-	case *ast.Ident:
-		return ExtractorJson(data, expr.Name)
 	}
 
-	return nil
+	return fmt.Errorf("unsuported expr type %s", expr)
 }
 
-func parseFunc(expr ast.Expr, data string) {
+func parseFunc(expr ast.Expr, data string) (err error) {
 	astutil.Apply(expr, nil, func(c *astutil.Cursor) bool {
 		n := c.Node()
 		switch x := n.(type) {
 		case *ast.CallExpr:
 			id, ok := x.Fun.(*ast.Ident)
 			if ok {
+				v := ""
 				switch id.Name {
 				case "jq":
-					c.Replace(&ast.BasicLit{
-						Value: ExtractorJson(data, x.Args[0].(*ast.BasicLit).Value),
-					})
+					v, err = ExtractJson(data, x.Args[0].(*ast.BasicLit).Value)
 				case "regex":
-					c.Replace(&ast.BasicLit{
-						Value: ExtractorRegex(data, x.Args[0].(*ast.BasicLit).Value),
-					})
+					v, err = ExtractRegex(data, x.Args[0].(*ast.BasicLit).Value)
 				}
+				c.Replace(&ast.BasicLit{
+					Value: v,
+				})
 			}
 		}
 		return true
 	})
+	return nil
 }
 
 // Eval returns the value of expr for data
@@ -90,7 +90,9 @@ func Eval(expr string, data string) (any, error) {
 	fset := token.NewFileSet()
 	ast.Print(fset, astExpr)
 
-	parseFunc(astExpr, data)
+	if err := parseFunc(astExpr, data); err != nil {
+		return nil, err
+	}
 	ast.Print(fset, astExpr)
 
 	return evalAst(astExpr, data), nil

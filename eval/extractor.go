@@ -6,14 +6,24 @@ import (
 	"github.com/savaki/jq"
 )
 
-func ExtractorJson(data string, expr string) string {
+func ExtractJson(data string, expr string) (string, error) {
+
 	x := strings.Replace(expr, "\"", "", -1)
-	op, _ := jq.Parse(x)
-	value, _ := op.Apply([]byte(data))
-	return strings.Replace(string(value), "\"", "", -1)
+
+	op, err := jq.Parse(x)
+	if err != nil {
+		return "", err
+	}
+
+	value, err := op.Apply([]byte(data))
+	if err != nil {
+		return "", err
+	}
+
+	return strings.Replace(string(value), "\"", "", -1), nil
 }
 
-func ExtractorRegex(data string, expr string) string {
+func ExtractRegex(data string, expr string) (string, error) {
 	// TODO
-	return ""
+	return "", nil
 }
