@@ -6,12 +6,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestExtractorJson(t *testing.T) {
-	v, e := ExtractJson(`{"k":2}`, ".k")
+func TestJq(t *testing.T) {
+	v, e := jq(`{"k":2}`, ".k")
 	assert.Nil(t, e)
 	assert.Equal(t, "2", v)
 
-	v, e = ExtractJson(`{
+	v, e = jq(`{
 		"code": 0,
 		"msg": "success",
 		"data": [
