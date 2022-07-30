@@ -4,8 +4,8 @@ import (
 	"go/token"
 )
 
-// Operate get result for different operators and two params
-func Operate(op token.Token, x any, y any) any {
+// Calculate get result for different operators and two params
+func Calculate(op token.Token, x any, y any) any {
 	x, y = Convert(op, x, y)
 	switch op {
 	case token.LAND:

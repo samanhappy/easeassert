@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestOperate(t *testing.T) {
-	r := Operate(token.ADD, 1, 2)
+func TestCalculate(t *testing.T) {
+	r := Calculate(token.ADD, 1, 2)
 	assert.Equal(t, int64(3), r)
 }
