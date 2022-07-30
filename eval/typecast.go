@@ -5,8 +5,8 @@ import (
 	"strconv"
 )
 
-// Convert converts types for different operators
-func Convert(op token.Token, x any, y any) (any, any) {
+// Cast converts types for different operators
+func Cast(op token.Token, x any, y any) (any, any) {
 	xc, yc, xok, yok := x, y, false, false
 	switch op {
 	case token.LAND, token.LOR, token.NOT:
