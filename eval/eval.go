@@ -15,7 +15,7 @@ func evalAst(expr ast.Expr, data string) any {
 	case *ast.BinaryExpr:
 		x := evalAst(expr.X, data)
 		y := evalAst(expr.Y, data)
-		return Calculate(expr.Op, x, y)
+		return Compute(expr.Op, x, y)
 	case *ast.ParenExpr:
 		return evalAst(expr.X, data)
 	case *ast.BasicLit:
