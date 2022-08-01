@@ -6,6 +6,8 @@ import (
 	"go/parser"
 	"go/token"
 
+	"github.com/samanhappy/easeeval/compute"
+	"github.com/samanhappy/easeeval/function"
 	"golang.org/x/tools/go/ast/astutil"
 )
 
@@ -15,7 +17,7 @@ func evalAst(expr ast.Expr, data string) any {
 	case *ast.BinaryExpr:
 		x := evalAst(expr.X, data)
 		y := evalAst(expr.Y, data)
-		return Compute(expr.Op, x, y)
+		return compute.Compute(expr.Op, x, y)
 	case *ast.ParenExpr:
 		return evalAst(expr.X, data)
 	case *ast.BasicLit:
@@ -33,7 +35,7 @@ func parseFunc(expr ast.Expr, data string) error {
 		case *ast.CallExpr:
 			id, ok := x.Fun.(*ast.Ident)
 			if ok {
-				if result, err := Call(id.Name, x.Args, data); err == nil {
+				if result, err := function.Call(id.Name, x.Args, data); err == nil {
 					c.Replace(&ast.BasicLit{
 						Value: result,
 					})

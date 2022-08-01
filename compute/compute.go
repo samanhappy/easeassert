@@ -1,12 +1,14 @@
-package eval
+package compute
 
 import (
 	"go/token"
+
+	"github.com/samanhappy/easeeval/typecast"
 )
 
 // Compute get result for different operators and two params
 func Compute(op token.Token, x any, y any) any {
-	x, y = Cast(op, x, y)
+	x, y = typecast.Cast(op, x, y)
 	switch op {
 	case token.LAND:
 		return x.(bool) && y.(bool)
