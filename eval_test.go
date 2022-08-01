@@ -1,4 +1,4 @@
-package eval
+package easeeval
 
 import (
 	"testing"
