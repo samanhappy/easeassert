@@ -8,6 +8,7 @@ import (
 
 	"github.com/samanhappy/easeeval/compute"
 	"github.com/samanhappy/easeeval/function"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/tools/go/ast/astutil"
 )
 
@@ -50,21 +51,26 @@ func parseFunc(expr ast.Expr, data string) error {
 	return nil
 }
 
-// Eval returns the value of expr for data
+// Eval returns the value of expression for data
 func Eval(expr string, data string) (any, error) {
-
 	astExpr, err := parser.ParseExpr(expr)
 	if err != nil {
 		return nil, err
 	}
 
 	fset := token.NewFileSet()
-	ast.Print(fset, astExpr)
+	if log.GetLevel() == log.DebugLevel {
+		log.Debugln("ast after expression parse is:")
+		ast.Print(fset, astExpr)
+	}
 
 	if err := parseFunc(astExpr, data); err != nil {
 		return nil, err
 	}
-	ast.Print(fset, astExpr)
+	if log.GetLevel() == log.DebugLevel {
+		log.Debugln("ast after function parse is:")
+		ast.Print(fset, astExpr)
+	}
 
 	return evalAst(astExpr, data), nil
 }
