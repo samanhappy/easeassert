@@ -23,3 +23,31 @@ Compute does the actual eval work for different operators.
 - **arithmetic operators**. +, -, *, /
 - **relational operators**. >, <, ==, !=, >=, <=
 - **other operators**. (to be implemented)
+
+## 2 Usage
+
+### 2.1 Installation
+```
+go get github.com/samanhappy/easeeval
+```
+
+### 2.2 Example
+```
+package main
+
+import (
+	"fmt"
+
+	"github.com/samanhappy/easeeval"
+)
+
+func main() {
+	// pure eval
+	v, _ := easeeval.Eval(`1 + 2 * 3`, "")
+	fmt.Printf("value %v, type %T\n", v, v)
+
+	// use jq to extract value for eval
+	v, _ = easeeval.Eval(`1 + jq(".key") * 3`, `{"key":"2"}`)
+	fmt.Printf("value %v, type %T\n", v, v)
+}
+```
