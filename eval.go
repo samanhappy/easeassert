@@ -25,11 +25,11 @@ func evalAst(expr ast.Expr, data string) any {
 		return expr.Value
 	}
 
-	return fmt.Errorf("unsuported expr type %s", expr)
+	return fmt.Errorf("unsuported expr type %T", expr)
 }
 
 // parseFunc replaces function call to result
-func parseFunc(expr ast.Expr, data string) error {
+func parseFunc(expr ast.Expr, data string) (e error) {
 	astutil.Apply(expr, nil, func(c *astutil.Cursor) bool {
 		n := c.Node()
 		switch x := n.(type) {
@@ -38,17 +38,16 @@ func parseFunc(expr ast.Expr, data string) error {
 			if ok {
 				if result, err := function.Call(id.Name, x.Args, data); err == nil {
 					c.Replace(&ast.BasicLit{
-						Value: result,
+						Value: fmt.Sprintf("%v", result),
 					})
 				} else {
-					// TODO handle err
-					return false
+					e = err
 				}
 			}
 		}
 		return true
 	})
-	return nil
+	return
 }
 
 // Eval returns the value of expression for data

@@ -9,7 +9,11 @@ Function is very useful in many scenarios, we plan to supply different kind of f
  Extract functions extract target values from source text in many types: plain text, json, html, xml, etc.
  - **jq**. extract values from json format text using [jq](https://github.com/savaki/jq)
  - **regex**. extract values from text using regex (to be implemented)
-### 1.1.2 Other Function (to be implemented)
+### 1.1.2 Time Function
+Time functions supply ways to get unix time from string or for now.
+- **unixTime** return unix time seconds in int64 for any format string using [dateparse](https://github.com/araddon/dateparse)
+- **now** return unix time seconds in int64 for now 
+### 1.1.3 Other Function (to be implemented)
 
 ### 1.2 Typecast
 Typecast auto converts values on demand to specific types like string, number, date, etc. We support types below.
