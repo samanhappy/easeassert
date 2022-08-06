@@ -13,7 +13,7 @@ func Cast(op token.Token, x any, y any) (any, any) {
 		xc, xok = x.(bool)
 		yc, yok = y.(bool)
 	case token.ADD, token.SUB, token.MUL, token.QUO, token.GTR, token.LSS, token.EQL, token.NEQ, token.LEQ, token.GEQ:
-		// TODO only support convert to int64 for simple calculater and compare operators
+		// TODO only support convert to int64 for arithmetic and relational operators
 		xc, xok = toInt64(x)
 		yc, yok = toInt64(y)
 	}
