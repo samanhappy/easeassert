@@ -1,4 +1,8 @@
 # EaseEval
+[![GitHub license](https://img.shields.io/github/license/samanhappy/easeeval)](https://github.com/samanhappy/easeeval/blob/main/LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/samanhappy/easeeval)](https://goreportcard.com/report/github.com/samanhappy/easeeval)
+[![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/samanhappy/easeeval)](https://github.com/samanhappy/easeeval/blob/main/go.mod)
+
 EaseEval is a simple text eval tool, built on DSL, written in Go.
 
 ## Quick Start
