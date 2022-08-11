@@ -7,6 +7,8 @@
 
 EaseEval is a simple text eval tool, built on DSL, written in Go.
 
+> **Note**: To not reinvent the wheel, please use [https://github.com/Knetic/govaluate](https://github.com/Knetic/govaluate)
+
 ## Quick Start
 ### Install
 ```
