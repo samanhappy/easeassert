@@ -2,7 +2,7 @@ module github.com/samanhappy/easeeval
 
 go 1.18
 
-require github.com/stretchr/testify v1.8.2
+require github.com/stretchr/testify v1.8.4
 
 require golang.org/x/sys v0.7.0 // indirect
 
