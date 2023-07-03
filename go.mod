@@ -11,7 +11,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/savaki/jq v0.0.0-20161209013833-0e6baecebbf8
-	github.com/sirupsen/logrus v1.9.2
+	github.com/sirupsen/logrus v1.9.3
 	golang.org/x/tools v0.10.0
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
